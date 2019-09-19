@@ -1,0 +1,38 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>Reservations History</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+<h2> </h2	>
+<div class="container ">
+<table class="table table-bordered table-striped table-hover">
+  <tr>
+      <th>Room_no</th>
+      <th>Faculty Name</th>
+      <th>Date</th>
+      <th>Start Time</th>
+	  <th>End Time</th>
+	  <th>Event Name</th>
+  </tr>
+{% for i in data %}    
+<tr class ="info">
+<td>{{i.room_no}}</td>
+<td>{{i.faculty_name}}</td>  
+<td>{{i.date}}</td>  
+<td>{{i.start_time}}</td>
+<td>{{i.end_time}}</td>  
+<td>{{i.event_name}}</td>    
+</tr>
+{% endfor %}    	
+</table>
+</div><br /><br />
+
+</body>
+</html>
+

@@ -1,0 +1,80 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container">    
+            
+    <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title">Room reservation</div>
+                <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="/accounts/login/">Back to main page</a></div>
+            </div>  
+            <div class="panel-body" >
+              
+               
+                    <form  class="form-horizontal" method="post" action ="/booking/check_reservation/">
+					
+					
+					{% csrf_token %}
+					
+                       
+					   
+					   <div id="room" class="form-group required">
+                            <label for="rooms" class="control-label col-md-4  requiredField">Room No<span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 ">
+                             <label for="id_email1" class="control-label col-md-4  requiredField">{{room}} </label>
+ 
+                            </div>  
+					   </div>
+                      
+                        <div id="div_id_email" class="form-group required">
+                            <label for="id_email" class="control-label col-md-4  requiredField">Start time<span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 ">
+                                <input class="input-md emailinput form-control" id="id_email" name="start_time" placeholder="Your current email address" style="margin-bottom: 10px" type="email" />
+                            </div>     
+                        </div>
+                        <div id="div_id_password1" class="form-group required">
+                            <label for="id_password1" class="control-label col-md-4  requiredField">End time<span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 "> 
+                                <input class="input-md textinput textInput form-control" id="id_password1" name="end_time" placeholder="Create a password" style="margin-bottom: 10px" type="password" />
+                            </div>
+                        </div>
+                    
+                        <div id="div_id_name" class="form-group required"> 
+                            <label for="id_name" class="control-label col-md-4  requiredField"> Faculty Name<span class="asteriskField">*</span> </label> 
+                            <div class="controls col-md-8 "> 
+                                <input class="input-md textinput textInput form-control" id="id_name" name="name" placeholder="Your full name" style="margin-bottom: 10px" type="text" />
+                            </div>
+                        </div>
+
+                        <div id="div_id_company" class="form-group required"> 
+                            <label for="id_company" class="control-label col-md-4  requiredField"> Event Name<span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 "> 
+                                 <input class="input-md textinput textInput form-control" id="id_company" name="company" placeholder="your company name" style="margin-bottom: 10px" type="text" />
+                            </div>
+                        </div> 
+                        
+                  
+                        <div class="form-group"> 
+                            <div class="aab controls col-md-4 "></div>
+                            <div class="controls col-md-8 ">
+                                <input type="submit" name="Signup" value="Reserve" class="btn btn-primary btn btn-info" id="submit-id-signup" />
+                               
+                            </div>
+                        </div> 
+                            
+                    </form>
+
+            </div>
+        </div>
+    </div> 
+</div>
+    
+
+
+
+
+
+</div>            

@@ -1,0 +1,307 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="csrf-token" content="{% csrf_token %}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+<style>
+
+
+ .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+  </style>
+
+
+
+
+
+<!--
+<script type="text/javascript" src="{% static 'laundry/naya.js' %}"></script >
+<script src ="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+-->
+<script type="text/javascript">
+
+
+function passchange()
+{
+console.log('User id is: ');
+var user_id = document.getElementById('crazyy').getAttribute('data');
+console.log(user_id);
+var new_pass = prompt('new password');
+
+if (new_pass!='')
+{
+console.log ('ajax invoked');
+$.ajax({
+
+type: 'post',
+    url: '/laundry/pass_change/',
+    contentType: 'application/json; charset=utf-8', //EDITED
+    
+	//data: JSON.stringify(obj),
+    
+	data:{new_pass: (new_pass),
+			datas_obj: user_id
+			
+			},
+	success: function(data) {
+  //       $('body').html(data); //EDITED
+    },
+    error: function(rs, e) {     
+         alert(rs.responseText);                
+    }
+});
+
+}
+
+}
+
+
+
+
+function caller()
+
+{
+room_no = document.getElementById("idd").value;
+console.log("value is");
+console.log(room_no);
+
+
+$.ajax({
+
+type: 'get',
+    url: '/booking/reserve/',
+    contentType: 'application/json; charset=utf-8', //EDITED
+    
+	//data: JSON.stringify(obj),
+    
+	data:{room_no:(room_no)},
+	success: function(data) {
+  //       $('body').html(data); //EDITED
+    },
+    error: function(rs, e) {     
+         alert(rs.responseText);                
+    }
+});
+
+
+
+}
+
+
+
+
+</script>  
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">BPDC booking</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="#">Refresh</a></li>
+ 
+        </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="jumbotron">
+  <div class="container text-center">
+    <h1>Hello {{name1}}! </h1>      
+   <p>These are the latest stats I could pick from the db</p>
+  </div>
+</div>
+  
+  <form action="/booking/check_reservation/" method ="POST">
+  {% csrf_token %}
+<div class="container-fluid bg-3 text-center">   
+
+   
+  <h3>Select Room:</h3>
+  <div class ="container text-center">
+
+{% if rooms %}
+
+	<select name="lister" id="idd" class="form-control">
+  {% for i in rooms %}
+  
+<option value ="{{i}}">{{i}}</option> 
+{% endfor %}
+
+
+</select>
+
+
+{% endif %} 
+<br><br>
+
+    <div id="div_id_company1" class="form-group required"> 
+                            <label for="id_company" class="control-label col-md-4  requiredField"> Date<span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 "> 
+                                 <input class="input-md textinput textInput form-control" id="id_company" name="date" placeholder="Date of the event in dd/mm/yyyy format" style="margin-bottom: 10px" type="text" />
+                            </div>
+                        </div> 
+
+
+<div id="div_id_email" class="form-group required">
+                            <label for="id_email" class="control-label col-md-4  requiredField">Start time<span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 ">
+                                <input class="input-md emailinput form-control" id="id_email" name="start_time" placeholder="enter in 12 hr format" style="margin-bottom: 10px" type="text" />
+                            </div>     
+                  </div>
+<div id="div_id_password1" class="form-group required">
+                            <label for="id_password1" class="control-label col-md-4  requiredField">End time<span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 "> 
+                                <input class="input-md textinput textInput form-control" id="id_password1" name="end_time" placeholder="Enter in 12 hr format" style="margin-bottom: 10px" type="text" />
+                            </div>
+                        </div>
+ 
+   <div id="div_id_name" class="form-group required"> 
+                            <label for="id_name" class="control-label col-md-4  requiredField"> Faculty Name<span class="asteriskField">*</span> </label> 
+                            <div class="controls col-md-8 "> 
+                                <input class="input-md textinput textInput form-control" id="id_name" name="name2" placeholder="Name of faculty associated" style="margin-bottom: 10px" type="text" disabled value ={{name1}} />
+                            </div>
+                        </div>
+
+                        <div id="div_id_company" class="form-group required"> 
+                            <label for="id_company" class="control-label col-md-4  requiredField"> Event Name<span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 "> 
+                                 <input class="input-md textinput textInput form-control" id="id_company" name="event_name" placeholder="Event Name" style="margin-bottom: 10px" type="text" />
+                            </div>
+                        </div> 
+                        
+
+          <div id="div_id_company" class="form-group required"> 
+                            <label for="id_company" class="control-label col-md-4  requiredField"> Delete Date <span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 "> 
+                                 <input class="input-md textinput textInput form-control" id="id_date" name="delete_date" placeholder="Enter date to delete" style="margin-bottom: 10px" type="text" />
+                            </div>
+                        </div> 						
+			
+ <div id="div_id_company" class="form-group required"> 
+                            <label for="id_company" class="control-label col-md-4  requiredField"> Delete Room <span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 "> 
+                                 <input class="input-md textinput textInput form-control" id="id_room" name="delete_room" placeholder="Enter room to delete" style="margin-bottom: 10px" type="text" />
+                            </div>
+                        </div>
+
+ <div id="div_id_company" class="form-group required"> 
+                            <label for="id_company" class="control-label col-md-4  requiredField"> Delete Start time <span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 "> 
+                                 <input class="input-md textinput textInput form-control" id="id_date" name="delete_start_time" placeholder="Enter Start time as shown in the reservation table" style="margin-bottom: 10px" type="text" />
+                            </div>
+                        </div>						
+						
+						
+ 
+
+ </div>
+  <br><br><br>
+  
+  <div class="row">
+    <div class="col-sm-3">
+    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <button type="submit" class="btn btn-primary btn-lg" formaction="/booking/histogram/"  id="clicker">See Reservations</button>
+	 <br><br>
+    </div>
+    <div class="col-sm-3"> 
+ &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<button type="submit" class="btn btn-secondary btn-lg" >Reserve</button>
+<br><br>
+<p></p>
+    </div>
+	
+	<div class="col-sm-3"> 
+ &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<button type="submit" class="btn btn-secondary btn-lg" formaction="/booking/delete/" >Delete Booking</button>
+<br><br>
+<p></p>
+    </div>
+	
+    <div class="col-sm-3"> 
+
+	 <br><br>
+ 
+    </div>
+
+  </div>
+</div>
+</form>
+<br>
+
+
+
+<footer class="container-fluid text-center">
+  
+  
+</footer>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
